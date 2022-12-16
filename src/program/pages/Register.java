@@ -13,7 +13,7 @@ public class Register extends Page {
         super.getAccesiblePages().add("register");
     }
 
-    public void accept(Action action, ObjectMapper mapper, ObjectNode node, Database database) {
-        action.visit(this, node, database);
+    public void accept(Action action, ObjectNode node) {
+        action.visit(this, node);
     }
 }

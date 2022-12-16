@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class Logins extends Feature implements Action {
     private final Credentials credentials;
+    private Database database;
 
     // constructor
     public Logins(ActionsInput input) {
@@ -34,17 +35,17 @@ public class Logins extends Feature implements Action {
     }
 
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node, Database data) {
+    public void visit(LoggedHomepage page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node, Database data) {
+    public void visit(UnloggedHomepage page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Login page, ObjectNode node, Database database) {
+    public void visit(Login page, ObjectNode node) {
         //Database database = Database.getInstance();
         int index = nameDoesNotExists(credentials, database.getUsersData());
         if (index < 0) {
@@ -71,37 +72,38 @@ public class Logins extends Feature implements Action {
     }
 
     @Override
-    public void visit(Logout page, ObjectNode node, Database data) {
+    public void visit(Logout page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Movies page, ObjectNode node, Database data) {
+    public void visit(Movies page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Register page, ObjectNode node, Database data) {
+    public void visit(Register page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Upgrades page, ObjectNode node, Database data) {
+    public void visit(Upgrades page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(SeeDetails page, ObjectNode node, Database data) {
+    public void visit(SeeDetails page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void apply(Database database, ArrayNode output) {
+    public void apply(Database data, ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
 
         // visit page
-        database.getCurrentPage().accept(this, mapper, node, database);
+        this.database = data;
+        data.getCurrentPage().accept(this, node);
         output.add(node);
     }
 

@@ -19,9 +19,8 @@ public interface Action {
      *
      * @param page page to be visited
      * @param node stores ouptut of action
-     * @param data stores curret status of system
      */
-    void visit(LoggedHomepage page, ObjectNode node, Database data);
+    void visit(LoggedHomepage page, ObjectNode node);
 
     /**
      *
@@ -29,62 +28,55 @@ public interface Action {
      *
      * @param page page to be visited
      * @param node stores output of action
-     * @param data stores current status of system
      */
-    void visit(UnloggedHomepage page, ObjectNode node, Database data);
+    void visit(UnloggedHomepage page, ObjectNode node);
 
     /**
      * Method visits Login page and executes action
      *
      * @param page page to be visited
      * @param node stores output of action
-     * @param data stores current status of system
      */
-    void visit(Login page, ObjectNode node, Database data);
+    void visit(Login page, ObjectNode node);
 
     /**
      * Method visits Logout page an dexecutes action
      *
      * @param page page to be visited
      * @param node stores output of action
-     * @param data stores current status of system
      */
-    void visit(Logout page, ObjectNode node, Database data);
+    void visit(Logout page, ObjectNode node);
 
     /**
      * Method visits Movies page and executes action
      *
      * @param page page to ve visited
      * @param node stores output of action
-     * @param data stores current status of system
      */
-    void visit(Movies page, ObjectNode node, Database data);
+    void visit(Movies page, ObjectNode node);
 
     /**
      * Method visits Register page and executes action
      *
      * @param page page to be visited
      * @param node stores output of action
-     * @param data stores current status of system
      */
-    void visit(Register page, ObjectNode node, Database data);
+    void visit(Register page, ObjectNode node);
 
     /**
      * Method visits Upgrades page and executes action
      *
      * @param page page to be visited
      * @param node stores output of action
-     * @param data stores current status of system
      */
-    void visit(Upgrades page, ObjectNode node, Database data);
+    void visit(Upgrades page, ObjectNode node);
     /**
      * Method visits See Details page and executes action
      *
      * @param page page to be visited
      * @param node stores output of action
-     * @param data stores current status of system
      */
-    void visit(SeeDetails page, ObjectNode node, Database data);
+    void visit(SeeDetails page, ObjectNode node);
 
     /**
      * Method calls visit method for specific page of current action

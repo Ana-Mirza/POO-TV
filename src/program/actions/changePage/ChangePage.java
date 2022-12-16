@@ -26,6 +26,7 @@ public final class ChangePage implements Action {
     private final String page;
     private final String movie;
     private boolean displayOutput;
+    private Database database;
 
     // constructors
     public ChangePage(final ActionsInput input) {
@@ -36,34 +37,35 @@ public final class ChangePage implements Action {
 
     @Override
     public void visit(final LoggedHomepage page,
-                      final ObjectNode node, final Database data) {
+                      final ObjectNode node) {
         StandardOutput.set(node, page);
     }
 
     @Override
     public void visit(final UnloggedHomepage page,
-                      final ObjectNode node, final Database data) {
+                      final ObjectNode node) {
         StandardOutput.set(node, page);
     }
 
     @Override
     public void visit(final Login page,
-                      final ObjectNode node, final Database data) {
+                      final ObjectNode node) {
         StandardOutput.set(node, page);
     }
 
     @Override
     public void visit(final Logout page,
-                      final ObjectNode node, final Database data) {
+                      final ObjectNode node) {
         // update current page
-        data.setCurrentPage(PageFactory.createPage("homepage neautentificat", data));
-        data.setUserMovies(new ArrayList<>());
-        data.setCurrentUser(new User());
+        database.setCurrentPage(PageFactory.createPage(
+                "homepage neautentificat", database));
+        database.setUserMovies(new ArrayList<>());
+        database.setCurrentUser(new User());
     }
 
     @Override
     public void visit(final Movies page,
-                      final ObjectNode node, final Database database) {
+                      final ObjectNode node) {
         // set output
         StandardOutput.set(node, page);
         displayOutput = true;
@@ -71,19 +73,19 @@ public final class ChangePage implements Action {
 
     @Override
     public void visit(final Register page,
-                      final ObjectNode node, final Database data) {
+                      final ObjectNode node) {
         StandardOutput.set(node, page);
     }
 
     @Override
     public void visit(final Upgrades page,
-                      final ObjectNode node, final Database data) {
+                      final ObjectNode node) {
         StandardOutput.set(node, page);
     }
 
     @Override
     public void visit(final SeeDetails page,
-                      final ObjectNode node, final Database data) {
+                      final ObjectNode node) {
         // set movie available
         page.getUserMovies().removeIf((movie) -> !movie.getName().equals(this.movie));
         displayOutput = true;
@@ -91,7 +93,7 @@ public final class ChangePage implements Action {
         // check if movie was found
         if (page.getUserMovies().size() == 0) {
             // return to movies page if movie was not found
-            data.setCurrentPage(PageFactory.createPage("movies", data));
+            database.setCurrentPage(PageFactory.createPage("movies", database));
             // set error output
             OutputError.set(node);
             return;
@@ -101,21 +103,22 @@ public final class ChangePage implements Action {
         StandardOutput.set(node, page);
     }
 
-    public void apply(final Database database, final ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
 
         // check if page is available
-        if (pageNotAvailable(database)) {
+        if (pageNotAvailable(data)) {
             OutputError.set(node);
             output.add(node);
             return;
         }
         // set new current page
-        database.setCurrentPage(PageFactory.createPage(page, database));
+        data.setCurrentPage(PageFactory.createPage(page, data));
 
         // update current page
-        database.getCurrentPage().accept(this, mapper, node, database);
+        this.database = data;
+        data.getCurrentPage().accept(this, node);
         if (displayOutput) {
             output.add(node);
         }

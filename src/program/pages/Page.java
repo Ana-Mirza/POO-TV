@@ -69,5 +69,5 @@ public abstract class Page {
 
 
     // method to accept action visitors
-    public void accept(Action action, ObjectMapper mapper, ObjectNode node, Database data) { }
+    public void accept(Action action, ObjectNode node) { }
 }

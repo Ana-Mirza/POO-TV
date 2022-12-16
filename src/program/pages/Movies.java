@@ -18,8 +18,8 @@ public class Movies extends Page {
         super.getActionsPermitted().add("filter");
     }
 
-    public void accept(Action action, ObjectMapper mapper, ObjectNode node, Database database) {
-        action.visit(this, node, database);
+    public void accept(Action action, ObjectNode node) {
+        action.visit(this, node);
     }
 
     public void filter(FilterStrategy filterStrategy, Filters filter) {

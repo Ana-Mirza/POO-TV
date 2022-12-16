@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class Filter extends Feature implements Action {
     private final Filters filters;
+    private Database database;
 
     // constructor
     public Filter(ActionsInput input) {
@@ -32,27 +33,27 @@ public class Filter extends Feature implements Action {
     }
 
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node, Database data) {
+    public void visit(LoggedHomepage page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node, Database data) {
+    public void visit(UnloggedHomepage page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Login page, ObjectNode node, Database data) {
+    public void visit(Login page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Logout page, ObjectNode node, Database data) {
+    public void visit(Logout page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Movies page, ObjectNode node, Database database) {
+    public void visit(Movies page, ObjectNode node) {
         // set user movies
         if (page.getUserMovies().size() == 0) {
             page.setUserMovies(new ArrayList<>(database.getUserMovies()));
@@ -68,17 +69,17 @@ public class Filter extends Feature implements Action {
     }
 
     @Override
-    public void visit(Register page, ObjectNode node, Database data) {
+    public void visit(Register page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Upgrades page, ObjectNode node, Database data) {
+    public void visit(Upgrades page, ObjectNode node) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(SeeDetails page, ObjectNode node, Database data) {
+    public void visit(SeeDetails page, ObjectNode node) {
         OutputError.set(node);
     }
 
@@ -87,7 +88,8 @@ public class Filter extends Feature implements Action {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
         // visit page
-        data.getCurrentPage().accept(this, mapper, node, data);
+        this.database = data;
+        data.getCurrentPage().accept(this, node);
         output.add(node);
     }
 }
