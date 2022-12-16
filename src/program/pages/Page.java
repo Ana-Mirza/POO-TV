@@ -2,9 +2,7 @@ package program.pages;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fileio.ActionsInput;
 import program.actions.Action;
-import program.actions.onPage.Feature;
 import program.util.Database;
 import program.util.Movie;
 import program.util.User;
@@ -59,14 +57,8 @@ public abstract class Page {
     public ArrayList<String> getAccesiblePages() {
         return accesiblePages;
     }
-    public void setAccesiblePages(ArrayList<String> accesiblePages) {
-        this.accesiblePages = accesiblePages;
-    }
     public ArrayList<String> getActionsPermitted() {
         return actionsPermitted;
-    }
-    public void setActionsPermitted(ArrayList<String> actionsPermitted) {
-        this.actionsPermitted = actionsPermitted;
     }
     public void setUserMovies(ArrayList<Movie> userMovies) {
         this.userMovies = userMovies;
@@ -77,6 +69,5 @@ public abstract class Page {
 
 
     // method to accept action visitors
-    public void accept(Action action, ObjectMapper mapper, ObjectNode node, Database data) {
-    }
+    public void accept(Action action, ObjectMapper mapper, ObjectNode node, Database data) { }
 }

@@ -111,10 +111,7 @@ public class User {
     // get type of account
     private boolean getAccount(Credentials credentials) {
         String premium = "premium";
-        if (premium.equals(credentials.getAccountType())) {
-            return true;
-        }
-        return false;
+        return premium.equals(credentials.getAccountType());
     }
 
 }

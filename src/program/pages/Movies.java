@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
 import program.util.Database;
-
-import java.util.ArrayList;
+import program.util.dataprocessing.FilterStrategy;
+import program.util.dependencies.Filters;
 
 public class Movies extends Page {
     public Movies(Database data) {
@@ -20,5 +20,9 @@ public class Movies extends Page {
 
     public void accept(Action action, ObjectMapper mapper, ObjectNode node, Database database) {
         action.visit(this, mapper, node, database);
+    }
+
+    public void filter(FilterStrategy filterStrategy, Filters filter) {
+        filterStrategy.filter(filter, this);
     }
 }

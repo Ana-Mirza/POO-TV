@@ -5,12 +5,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
 import program.util.Database;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Register extends Page {
     // constructor
-    public Register(Database data) {
+    public Register() {
         super("register");
         super.getActionsPermitted().add("register");
         super.getAccesiblePages().add("register");

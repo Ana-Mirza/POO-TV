@@ -3,11 +3,16 @@ package program.actions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import program.actions.onPage.Registers;
-import program.pages.*;
+import program.pages.LoggedHomepage;
+import program.pages.UnloggedHomepage;
+import program.pages.Login;
+import program.pages.Logout;
+import program.pages.Movies;
+import program.pages.Register;
+import program.pages.Upgrades;
+import program.pages.SeeDetails;
 import program.util.Database;
 
-import java.util.ArrayList;
 
 public interface Action {
     public void visit(LoggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data);

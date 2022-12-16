@@ -7,7 +7,7 @@ import program.util.Database;
 
 
 public class Login extends Page {
-    public Login(Database data) {
+    public Login() {
         super("login");
         super.getActionsPermitted().add("login");
         super.getAccesiblePages().add("login");

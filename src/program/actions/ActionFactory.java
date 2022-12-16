@@ -2,8 +2,16 @@ package program.actions;
 
 import fileio.ActionsInput;
 import program.actions.changePage.ChangePage;
-import program.actions.onPage.*;
-import program.pages.Upgrades;
+import program.actions.onPage.Registers;
+import program.actions.onPage.Logins;
+import program.actions.onPage.Search;
+import program.actions.onPage.Purchase;
+import program.actions.onPage.Filter;
+import program.actions.onPage.Watch;
+import program.actions.onPage.Like;
+import program.actions.onPage.Rate;
+import program.actions.onPage.BuyPremiumAccount;
+import program.actions.onPage.BuyTokens;
 
 public abstract class ActionFactory {
     public static Action createAction(ActionsInput actions) {

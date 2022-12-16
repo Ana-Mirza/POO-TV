@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
 import program.util.Database;
-import program.util.User;
 
 public class Logout extends Page {
     // constructor
-    public Logout(Database data) {
+    public Logout() {
         super("logout");
     }
 

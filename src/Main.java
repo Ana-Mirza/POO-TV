@@ -15,15 +15,12 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayNode output = objectMapper.createArrayNode();
         Input inputData = objectMapper.readValue(new File(args[0]), Input.class);
-        //Input inputData = objectMapper.readValue(new File("src/test.json"), Input.class);
 
         // Entry point of implementation
         Program program = Program.getInstance();
         program.start(inputData, output);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-        //objectWriter.writeValue(new File("results.out"), output);
         objectWriter.writeValue(new File(args[1]), output);
-
     }
 }

@@ -5,11 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
 import program.util.Database;
 
-import java.util.ArrayList;
 
 public class Upgrades extends Page {
-    private ArrayList<String> accesiblePages;
-    private ArrayList<String> actionsPermitted;
 
     // constructor
     public Upgrades(Database data) {

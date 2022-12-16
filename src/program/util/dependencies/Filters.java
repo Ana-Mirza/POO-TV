@@ -1,10 +1,6 @@
 package program.util.dependencies;
 
 import fileio.FiltersInput;
-import program.pages.Page;
-import program.util.Movie;
-
-import java.util.ArrayList;
 
 public class Filters {
     private Sort sort;

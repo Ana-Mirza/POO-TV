@@ -1,22 +1,29 @@
 package program.actions.onPage;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.ActionsInput;
 import program.actions.Action;
-import program.pages.*;
+import program.actions.output.OutputError;
+import program.actions.output.StandardOutput;
+import program.pages.LoggedHomepage;
+import program.pages.UnloggedHomepage;
+import program.pages.Logout;
+import program.pages.Login;
+import program.pages.Register;
+import program.pages.Movies;
+import program.pages.SeeDetails;
+import program.pages.Upgrades;
+import program.pages.PageFactory;
 import program.util.Database;
 import program.util.Movie;
 import program.util.User;
 import program.util.dependencies.Credentials;
-
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class Registers extends Feature implements Action {
-    private Credentials credentials;
+    private final Credentials credentials;
 
     // contructor
     public Registers(ActionsInput input) {
@@ -26,46 +33,34 @@ public class Registers extends Feature implements Action {
 
     @Override
     public void visit(LoggedHomepage page, ObjectMapper mapper, ObjectNode node, Database database) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(UnloggedHomepage page, ObjectMapper mapper, ObjectNode node, Database database) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Login page, ObjectMapper mapper, ObjectNode node, Database database) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Logout page, ObjectMapper mapper, ObjectNode node, Database database) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Movies page, ObjectMapper mapper, ObjectNode node, Database database) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Register page, ObjectMapper mapper, ObjectNode node, Database database) {
         //Database database = Database.getInstance();
         if (nameAlreadyExists(credentials, database.getUsersData())) {
-            node.put("error", "Error");
-            node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-            node.set("currentUser", null);
+            OutputError.set(node);
             database.setCurrentPage(PageFactory.createPage("homepage neautentificat", database));
             return;
         }
@@ -85,24 +80,17 @@ public class Registers extends Feature implements Action {
                 (movie) -> movieBanned(database.getCurrentUser(), movie));
 
         // save output
-        node.set("error", null);
-        node.set("currentMoviesList", mapper.valueToTree(
-                database.getCurrentPage().getUserMovies()));
-        node.set("currentUser", mapper.valueToTree(database.getCurrentUser()));
+        StandardOutput.set(node, database.getCurrentPage());
     }
 
     @Override
     public void visit(Upgrades page, ObjectMapper mapper, ObjectNode node, Database database) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(SeeDetails page, ObjectMapper mapper, ObjectNode node, Database database) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override

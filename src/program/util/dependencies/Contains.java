@@ -1,8 +1,6 @@
 package program.util.dependencies;
 
 import fileio.ContainsInput;
-import program.pages.Page;
-import program.util.Movie;
 
 import java.util.ArrayList;
 
@@ -35,27 +33,6 @@ public class Contains {
 
     public void setGenres(ArrayList<String> genres) {
         this.genres = genres;
-    }
-
-    // filter method
-    public static void filter(Page page, Contains contains) {
-        if (contains == null)
-            return;
-
-        // apply actor filter if available
-        if (contains.getActors() != null) {
-            for (String actor: contains.getActors()) {
-                page.getUserMovies().removeIf((movie) ->
-                        !movie.getActors().contains(actor));
-            }
-        }
-        // apply genre filter if available
-        if (contains.getGenres() != null) {
-            for (String genre: contains.getGenres()) {
-                page.getUserMovies().removeIf((movie) ->
-                        !movie.getGenres().contains(genre));
-            }
-        }
     }
 
     @Override

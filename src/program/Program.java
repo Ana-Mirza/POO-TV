@@ -1,21 +1,11 @@
 package program;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.ActionsInput;
 import fileio.Input;
-import fileio.MoviesInput;
-import fileio.UsersInput;
 import program.actions.Action;
 import program.actions.ActionFactory;
-import program.pages.PageFactory;
 import program.util.Database;
-import program.util.Movie;
-import program.util.User;
-
-import javax.xml.crypto.Data;
-import java.util.ArrayList;
 
 public class Program {
     // Singleton Pattern
@@ -35,18 +25,19 @@ public class Program {
     }
 
     /**
-     * Entry point of the program. It runs the actions specified in input
+     * Entry point of the program. It runs the actions specified
+     * by user
      *
      * @param inputData stores input data from input file
      * @param output stores output of actions
      */
     public void start(final Input inputData, final ArrayNode output) {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
         Database data = new Database(inputData);
 
+        // parse actions
         for (ActionsInput action: inputData.getActions()) {
             Action myAction = ActionFactory.createAction(action);
+            assert myAction != null;
             myAction.apply(data, output);
         }
     }

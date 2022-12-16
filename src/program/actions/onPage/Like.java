@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.ActionsInput;
 import program.actions.Action;
+import program.actions.output.OutputError;
+import program.actions.output.StandardOutput;
 import program.pages.*;
 import program.util.Database;
 import program.util.Movie;
@@ -18,51 +20,37 @@ public class Like extends Feature implements Action {
 
     @Override
     public void visit(LoggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(UnloggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Login page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Logout page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Movies page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Register page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Upgrades page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
@@ -70,9 +58,7 @@ public class Like extends Feature implements Action {
         // check if watched movie
         Movie movie = page.getUserMovies().get(0);
         if (!watchedMovie(movie, page.getCurrentUser().getWatchedMovies())) {
-            node.put("error", "Error");
-            node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-            node.set("currentUser", null);
+            OutputError.set(node);
             return;
         }
 
@@ -80,9 +66,7 @@ public class Like extends Feature implements Action {
         page.getCurrentUser().getLikedMovies().add(movie);
         movie.setNumLikes(movie.getNumLikes() + 1);
         // save output
-        node.set("error", null);
-        node.set("currentMoviesList", mapper.valueToTree(page.getUserMovies()));
-        node.set("currentUser", mapper.valueToTree(page.getCurrentUser()));
+        StandardOutput.set(node, page);
     }
 
     @Override

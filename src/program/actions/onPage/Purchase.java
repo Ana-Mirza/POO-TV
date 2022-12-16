@@ -5,14 +5,21 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.ActionsInput;
 import program.actions.Action;
-import program.pages.*;
+import program.actions.output.OutputError;
+import program.actions.output.StandardOutput;
+import program.pages.LoggedHomepage;
+import program.pages.UnloggedHomepage;
+import program.pages.Login;
+import program.pages.Logout;
+import program.pages.Register;
+import program.pages.Movies;
+import program.pages.SeeDetails;
+import program.pages.Upgrades;
 import program.util.Database;
 import program.util.Movie;
 
-import java.util.ArrayList;
-
 public class Purchase extends Feature implements Action {
-    private int moviePrice;
+    private final int moviePrice;
     public Purchase(ActionsInput input) {
         super(input);
         moviePrice = 2;
@@ -20,51 +27,37 @@ public class Purchase extends Feature implements Action {
 
     @Override
     public void visit(LoggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(UnloggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Login page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Logout page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Movies page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Register page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
     public void visit(Upgrades page, ObjectMapper mapper, ObjectNode node, Database data) {
-        node.put("error", "Error");
-        node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-        node.set("currentUser", null);
+        OutputError.set(node);
     }
 
     @Override
@@ -74,9 +67,7 @@ public class Purchase extends Feature implements Action {
                 && page.getCurrentUser().getTokensCount() < moviePrice)
                 || (page.getCurrentUser().getNumFreePremiumMovies() == 0
                 && page.getCurrentUser().getTokensCount() < moviePrice)) {
-            node.put("error", "Error");
-            node.set("currentMoviesList", mapper.valueToTree(new ArrayList<String>()));
-            node.set("currentUser", null);
+            OutputError.set(node);
             return;
         }
 
@@ -94,9 +85,7 @@ public class Purchase extends Feature implements Action {
         }
 
         // save output
-        node.set("error", null);
-        node.set("currentMoviesList", mapper.valueToTree(page.getUserMovies()));
-        node.set("currentUser", mapper.valueToTree(page.getCurrentUser()));
+        StandardOutput.set(node, page);
     }
 
     @Override
