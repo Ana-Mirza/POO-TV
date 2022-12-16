@@ -20,54 +20,99 @@ import program.util.Movie;
 
 import java.util.ArrayList;
 
-public class Rate extends Feature implements Action {
+public final class Rate extends Feature implements Action {
     private final int rating;
-    public Rate(ActionsInput input) {
+    private ObjectNode node;
+    public Rate(final ActionsInput input) {
         super(input);
         rating = input.getRate();
     }
 
+    /**
+     * Method saves error in output. Rating action is not
+     * permitted on this page.
+     * @param page stores Logged Homepage page visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Rating action is not
+     * permitted on this page.
+     * @param page stores Unlogged Homepage page visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Rating action is not
+     * permitted on this page.
+     * @param page stores Login page visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Rating action is not
+     * permitted on this page.
+     * @param page stores Logout page visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Rating action is not
+     * permitted on this page.
+     * @param page stores Movies page visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Rating action is not
+     * permitted on this page.
+     * @param page stores Register page visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
+    public void visit(final Register page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Rating action is not
+     * permitted on this page.
+     * @param page stores Upgrades page visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method rates a movie if rating is in accepted
+     * range (1-5), and if movie was watched before.
+     * If conditions are met, movie is stores in rated movie
+     * list of user.
+     * @param page stores See Details page visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         // check if movie was watched and if rating is valid
         Movie movie = page.getUserMovies().get(0);
+        final int minRating = 1;
+        final int maxRating = 5;
         if (!watchedMovie(movie, page.getCurrentUser().getWatchedMovies())
-            || rating < 1 || rating > 5) {
+            || rating < minRating || rating > maxRating) {
             OutputError.set(node);
             return;
         }
@@ -81,21 +126,28 @@ public class Rate extends Feature implements Action {
         StandardOutput.set(node, page);
     }
 
+    /**
+     * Method calls visit method of current page and saves
+     * output to display.
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
         // visit page
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         output.add(node);
     }
 
-    private boolean watchedMovie(Movie movie, ArrayList<Movie> movies) {
-        for (Movie currentMovie: movies) {
-            if (currentMovie.equals(movie)) {
-                return true;
-            }
-        }
-        return false;
+    /**
+     * Method checks if movie was watched previously
+     * @param movie to be tested
+     * @param movies contains list of watched list of current user
+     * @return true if movie was watched, and false if not
+     */
+    private boolean watchedMovie(final Movie movie, final ArrayList<Movie> movies) {
+        return movies.contains(movie);
     }
 }

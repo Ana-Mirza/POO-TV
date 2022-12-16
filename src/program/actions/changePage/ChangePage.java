@@ -27,6 +27,7 @@ public final class ChangePage implements Action {
     private final String movie;
     private boolean displayOutput;
     private Database database;
+    private ObjectNode node;
 
     // constructors
     public ChangePage(final ActionsInput input) {
@@ -36,26 +37,26 @@ public final class ChangePage implements Action {
     }
 
     @Override
-    public void visit(final LoggedHomepage page,
-                      final ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(final UnloggedHomepage page,
-                      final ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(final Login page,
-                      final ObjectNode node) {
+    public void visit(final Login page) {
         StandardOutput.set(node, page);
     }
 
+    /**
+     * Changes current page to unlogged homepage
+     * @param page page to be visited
+     */
     @Override
-    public void visit(final Logout page,
-                      final ObjectNode node) {
+    public void visit(final Logout page) {
         // update current page
         database.setCurrentPage(PageFactory.createPage(
                 "homepage neautentificat", database));
@@ -63,29 +64,34 @@ public final class ChangePage implements Action {
         database.setCurrentUser(new User());
     }
 
+    /**
+     * Displayes all movies availbe to current user
+     * @param page page to ve visited
+     */
     @Override
-    public void visit(final Movies page,
-                      final ObjectNode node) {
+    public void visit(final Movies page) {
         // set output
         StandardOutput.set(node, page);
         displayOutput = true;
     }
 
     @Override
-    public void visit(final Register page,
-                      final ObjectNode node) {
+    public void visit(final Register page) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(final Upgrades page,
-                      final ObjectNode node) {
+    public void visit(final Upgrades page) {
         StandardOutput.set(node, page);
     }
 
+    /**
+     * Displays output of a selected movie or
+     * nothing if the movie was not found
+     * @param page page to be visited
+     */
     @Override
-    public void visit(final SeeDetails page,
-                      final ObjectNode node) {
+    public void visit(final SeeDetails page) {
         // set movie available
         page.getUserMovies().removeIf((movie) -> !movie.getName().equals(this.movie));
         displayOutput = true;
@@ -103,9 +109,15 @@ public final class ChangePage implements Action {
         StandardOutput.set(node, page);
     }
 
+    /**
+     * Method checks if requested page is accesible and
+     * changes to requested page if available
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
 
         // check if page is available
         if (pageNotAvailable(data)) {
@@ -118,20 +130,20 @@ public final class ChangePage implements Action {
 
         // update current page
         this.database = data;
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         if (displayOutput) {
             output.add(node);
         }
     }
 
+    /**
+     * @param data containes current status of system
+     * @return true if page can not be reached and false
+     * if page can be reached from current page
+     */
     private boolean pageNotAvailable(final Database data) {
         Page currentPage = data.getCurrentPage();
         // check available pages
-        for (String nextPage: currentPage.getAccesiblePages()) {
-            if (nextPage.equals(page)) {
-                return false;
-            }
-        }
-        return true;
+        return !currentPage.getAccesiblePages().contains(page);
     }
 }

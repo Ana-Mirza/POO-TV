@@ -1,15 +1,13 @@
 package program.pages;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
 import program.util.Database;
 
 
-public class Upgrades extends Page {
+public final class Upgrades extends Page {
 
     // constructor
-    public Upgrades(Database data) {
+    public Upgrades(final Database data) {
         super("upgrades", data.getCurrentUser());
         if (data.getCurrentPage().getName().equals("homepage autentificat")) {
             super.getAccesiblePages().add("homepage autentificat");
@@ -17,7 +15,7 @@ public class Upgrades extends Page {
             super.getAccesiblePages().add("logout");
             super.getActionsPermitted().add("buy premium account");
             super.getActionsPermitted().add("buy tokens");
-        } else if (data.getCurrentPage().getName().equals("see details")){
+        } else if (data.getCurrentPage().getName().equals("see details")) {
             super.getActionsPermitted().add("purchase");
             super.getActionsPermitted().add("watch");
             super.getActionsPermitted().add("like");
@@ -26,7 +24,11 @@ public class Upgrades extends Page {
         }
     }
 
-    public void accept(Action action, ObjectNode node) {
-        action.visit(this, node);
+    /**
+     * Method to accept visitor
+     * @param action is action visitor
+     */
+    public void accept(final Action action) {
+        action.visit(this);
     }
 }

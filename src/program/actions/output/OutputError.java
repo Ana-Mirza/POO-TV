@@ -6,7 +6,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
 
 public class OutputError extends OutputStrategy {
-    public static void set(ObjectNode node) {
+    /**
+     * Method initializes a node with standard error
+     * output.
+     * @param node stores output to be displayed
+     */
+    public static void set(final ObjectNode node) {
         ObjectMapper mapper = new ObjectMapper();
 
         // set error output

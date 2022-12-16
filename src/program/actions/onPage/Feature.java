@@ -6,24 +6,30 @@ public abstract class Feature {
     private String type;
     private String page;
 
-    public Feature(ActionsInput input) {
+    /**
+     * Initializes type of feature and page on which
+     * feature is applied.
+     * @param input stores input data of action
+     */
+    public Feature(final ActionsInput input) {
         type = input.getType();
         page = input.getPage();
     }
 
-    public String getType() {
+    // getters and setters
+    public final String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public final void setType(final String type) {
         this.type = type;
     }
 
-    public String getPage() {
+    public final String getPage() {
         return page;
     }
 
-    public void setPage(String page) {
+    public final void setPage(final String page) {
         this.page = page;
     }
 }

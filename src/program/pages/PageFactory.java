@@ -3,7 +3,13 @@ package program.pages;
 import program.util.Database;
 
 public abstract class PageFactory {
-    public static Page createPage(String page, Database data) {
+    /**
+     * Method creates instance of specific page
+     * @param page contains name of page to be created
+     * @param data contains status of system
+     * @return specific instance of a page
+     */
+    public static Page createPage(final String page, final Database data) {
         return switch (page) {
             case "homepage neautentificat" -> new UnloggedHomepage();
             case "login" -> new Login();

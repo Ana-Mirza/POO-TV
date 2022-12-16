@@ -2,12 +2,12 @@ package program.util.dependencies;
 
 import fileio.SortInput;
 
-public class Sort {
+public final class Sort {
     private String rating;
     private String duration;
 
     // constructor
-    public Sort(SortInput input) {
+    public Sort(final SortInput input) {
         rating = input.getRating();
         duration = input.getDuration();
     }
@@ -18,7 +18,7 @@ public class Sort {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(final String rating) {
         this.rating = rating;
     }
 
@@ -26,15 +26,7 @@ public class Sort {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(final String duration) {
         this.duration = duration;
-    }
-
-    @Override
-    public String toString() {
-        return "Sort{" +
-                "rating='" + rating + '\'' +
-                ", duration='" + duration + '\'' +
-                '}';
     }
 }

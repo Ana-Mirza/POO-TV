@@ -16,53 +16,90 @@ import program.pages.SeeDetails;
 import program.pages.Upgrades;
 import program.util.Database;
 
-public class BuyTokens extends Feature implements Action {
+public final class BuyTokens extends Feature implements Action {
     private final int count;
     private boolean displayOutput;
-    public BuyTokens(ActionsInput input) {
+    private ObjectNode node;
+    public BuyTokens(final ActionsInput input) {
         super(input);
         displayOutput = false;
         count = Integer.parseInt(input.getCount());
     }
 
+    /**
+     * Method saves and error in output. Action is
+     * not permitted on this page.
+     * @param page Logged Homepage visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves and error in output. Action is
+     * not permitted on this page.
+     * @param page Unlogged Homepage visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is
+     * not permitted on this page
+     * @param page Login page visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is
+     * not permitted on this page
+     * @param page Logout page visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is
+     * not permitted on this page
+     * @param page Movies page visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is
+     * not permitted on this page
+     * @param page Register page visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
+    public void visit(final Register page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method checks if user has enough 'balance' to
+     * buy tokens. The proportion between the two is 1:1
+     * (1 token = 1 balance);
+     * @param page Upgrades page visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         int totalBalance = Integer.parseInt(
                 page.getCurrentUser().getCredentials().getBalance());
 
@@ -81,18 +118,29 @@ public class BuyTokens extends Feature implements Action {
         page.getCurrentUser().setTokensCount(currentTokens + count);
     }
 
+    /**
+     * Method saves an error in output. Action is
+     * not permitted on this page
+     * @param page See Details page visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method calls visit method of current page and saves
+     * output to be displayed.
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
         // visit page
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         if (displayOutput) {
             output.add(node);
         }

@@ -19,23 +19,22 @@ public abstract class ActionFactory {
      * @return instance of specific action
      */
     public static Action createAction(final ActionsInput actions) {
-        switch (actions.getType()) {
-            case "change page": return new ChangePage(actions);
-            case "on page":
-                switch (actions.getFeature()) {
-                    case "register": return new Registers(actions);
-                    case "login": return new Logins(actions);
-                    case "search": return new Search(actions);
-                    case "filter": return new Filter(actions);
-                    case "purchase": return new Purchase(actions);
-                    case "watch": return new Watch(actions);
-                    case "like": return new Like(actions);
-                    case "rate": return new Rate(actions);
-                    case "buy premium account": return new BuyPremiumAccount(actions);
-                    case "buy tokens": return new BuyTokens(actions);
-                    default: return null;
-                }
-        }
-        return null;
+        return switch (actions.getType()) {
+            case "change page" -> new ChangePage(actions);
+            case "on page" -> switch (actions.getFeature()) {
+                case "register" -> new Registers(actions);
+                case "login" -> new Logins(actions);
+                case "search" -> new Search(actions);
+                case "filter" -> new Filter(actions);
+                case "purchase" -> new Purchase(actions);
+                case "watch" -> new Watch(actions);
+                case "like" -> new Like(actions);
+                case "rate" -> new Rate(actions);
+                case "buy premium account" -> new BuyPremiumAccount(actions);
+                case "buy tokens" -> new BuyTokens(actions);
+                default -> null;
+            };
+            default -> null;
+        };
     }
 }

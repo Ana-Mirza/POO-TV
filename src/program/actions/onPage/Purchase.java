@@ -18,51 +18,93 @@ import program.pages.Upgrades;
 import program.util.Database;
 import program.util.Movie;
 
-public class Purchase extends Feature implements Action {
-    private final int moviePrice;
-    public Purchase(ActionsInput input) {
+public final class Purchase extends Feature implements Action {
+    private ObjectNode node;
+    public Purchase(final ActionsInput input) {
         super(input);
-        moviePrice = 2;
     }
 
+    /**
+     * Method saves error in output. Action is not permitted
+     * on this page.
+     * @param page stores Logged Homepage visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Action is not permitted
+     * on this page.
+     * @param page stores Unlogged Homepage visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Action is not permitted
+     * on this page.
+     * @param page stores Login page visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Action is not permitted
+     * on this page.
+     * @param page stores Logout page visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Action is not permitted
+     * on this page.
+     * @param page stores Movies page visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Action is not permitted
+     * on this page.
+     * @param page stores Register page visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
+    public void visit(final Register page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Action is not permitted
+     * on this page.
+     * @param page stores Upgrades page visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method checks if user has enough tokens to buy movie and
+     * displays an error if so. If user has premium it checks if
+     * there are free movies left, and if not, if he has enough
+     * tokens to buy movie.
+     * @param page stores See Details page visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         // check if user does not have enough tokens
+        final int moviePrice = 2;
         if ((!page.getCurrentUser().isPremium()
                 && page.getCurrentUser().getTokensCount() < moviePrice)
                 || (page.getCurrentUser().getNumFreePremiumMovies() == 0
@@ -74,12 +116,13 @@ public class Purchase extends Feature implements Action {
         // purchase movie
         Movie movie = page.getUserMovies().get(0);
         page.getCurrentUser().getPurchasedMovies().add(movie);
-        // update tokens if user is not premium
+        // update free movies left if user is premium and has free movies
         if (page.getCurrentUser().isPremium()
                 && page.getCurrentUser().getNumFreePremiumMovies() > 0) {
             int currentFreeMovies = page.getCurrentUser().getNumFreePremiumMovies();
             page.getCurrentUser().setNumFreePremiumMovies(currentFreeMovies - 1);
         } else {
+            // update tokens of user
             int currentTokens = page.getCurrentUser().getTokensCount();
             page.getCurrentUser().setTokensCount(currentTokens - moviePrice);
         }
@@ -88,12 +131,18 @@ public class Purchase extends Feature implements Action {
         StandardOutput.set(node, page);
     }
 
+    /**
+     * Method calls visit method of current page to apply
+     * purchase action and saves output to display.
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
         // visit page
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         output.add(node);
     }
 }

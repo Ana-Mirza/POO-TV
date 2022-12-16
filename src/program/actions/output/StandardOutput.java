@@ -5,7 +5,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.pages.Page;
 
 public class StandardOutput extends OutputStrategy {
-    public static void set(ObjectNode node, Page page) {
+    /**
+     * Method initializes an ObjectNode with standard
+     * output for successful operations.
+     * @param node saves output to be displayed
+     * @param page stores page from which output is taken
+     */
+    public static void set(final ObjectNode node, final Page page) {
         ObjectMapper mapper = new ObjectMapper();
 
         node.set("error", null);

@@ -24,28 +24,45 @@ import program.util.dependencies.Credentials;
 
 import java.util.ArrayList;
 
-public class Logins extends Feature implements Action {
+public final class Logins extends Feature implements Action {
     private final Credentials credentials;
     private Database database;
+    private ObjectNode node;
 
     // constructor
-    public Logins(ActionsInput input) {
+    public Logins(final ActionsInput input) {
         super(input);
         credentials = new Credentials(input.getCredentials());
     }
 
+    /**
+     * Method saves an error as ouput. Login action is not
+     * permitted on this page.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as ouput. Login action is not
+     * permitted on this page.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Only page where login action is allowed. If credentials
+     * introduced are correct, page changes to authenticated homepage,
+     * else it returns to unauthenticated homepage.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         //Database database = Database.getInstance();
         int index = nameDoesNotExists(credentials, database.getUsersData());
         if (index < 0) {
@@ -71,43 +88,80 @@ public class Logins extends Feature implements Action {
         StandardOutput.set(node, database.getCurrentPage());
     }
 
+    /**
+     * Method saves an error as ouput. Login action is not
+     * permitted on this page.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as ouput. Login action is not
+     * permitted on this page.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as ouput. Login action is not
+     * permitted on this page.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
+    public void visit(final Register page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as ouput. Login action is not
+     * permitted on this page.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as ouput. Login action is not
+     * permitted on this page.
+     * @param page page to be visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method calls visit method of action and stores output
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
 
         // visit page
         this.database = data;
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         output.add(node);
     }
 
-    private int nameDoesNotExists(Credentials credentials, ArrayList<User> users) {
+    /**
+     * Method checks if given credentials of user are in database;
+     * that is, if name is present in database and password is correct.
+     * @param credentials are user info checked
+     * @param users contains list of user in database
+     * @return true if credentials are incorrect
+     */
+    private int nameDoesNotExists(final Credentials credentials, final ArrayList<User> users) {
         // check if name exists in database
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
@@ -118,7 +172,14 @@ public class Logins extends Feature implements Action {
         }
         return -1;
     }
-    private boolean movieBanned(Page page, Movie movie) {
+
+    /**
+     * Method checks if a movie is banned from current user
+     * @param page is current page user is on
+     * @param movie movie tested
+     * @return true if movie is banned and false if not
+     */
+    private boolean movieBanned(final Page page, final Movie movie) {
         // check if user country belongs to banned countries of movie
         return movie.getCountriesBanned().contains(
                 page.getCurrentUser().getCredentials().getCountry());

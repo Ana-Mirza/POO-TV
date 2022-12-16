@@ -16,55 +16,91 @@ import program.pages.Upgrades;
 import program.pages.Register;
 import program.util.Database;
 
-public class BuyPremiumAccount extends Feature implements Action {
-    private final int premiumPrice;
+public final class BuyPremiumAccount extends Feature implements Action {
     private boolean displayOutput;
-    public BuyPremiumAccount(ActionsInput input) {
+    private ObjectNode node;
+    public BuyPremiumAccount(final ActionsInput input) {
         super(input);
         displayOutput = false;
-        premiumPrice = 10;
     }
 
+    /**
+     * Method saves an error in output. Action is not
+     * permitted on this page.
+     * @param page Logged Homepage visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is not
+     * permitted on this page.
+     * @param page Unlogged Homepage visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is not
+     * permitted on this page.
+     * @param page Login page visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is not
+     * permitted on this page.
+     * @param page Logout page visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is not
+     * permitted on this page.
+     * @param page Movies page visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method saves an error in output. Action is not
+     * permitted on this page.
+     * @param page Regiser page visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
+    public void visit(final Register page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Checks if user has enough tokens to buy premium account
+     * and changes user account to premium if so. If there are
+     * not enough tokens, the output is an error.
+     * @param page stores Upgrades to be visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         // check if user has enough tokens to buy premium account
         int currentTokens = page.getCurrentUser().getTokensCount();
+        final int premiumPrice = 10;
         if (currentTokens < premiumPrice) {
             OutputError.set(node);
             displayOutput = true;
@@ -76,18 +112,30 @@ public class BuyPremiumAccount extends Feature implements Action {
         page.getCurrentUser().getCredentials().setAccountType("premium");
     }
 
+    /**
+     * Method saves an error in output. Action is not
+     * permitted on this page.
+     * @param page See Details visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         OutputError.set(node);
         displayOutput = true;
     }
 
+    /**
+     * Method calls visit method of current page and saves
+     * output to be displayed.
+     * @param data stores current status of system
+     * @param output stores output to be displayed;
+     *               the is if an error occurs
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
         // visit page
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         if (displayOutput) {
             output.add(node);
         }

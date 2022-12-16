@@ -2,7 +2,7 @@ package program.util.dependencies;
 
 import fileio.CredentialsInput;
 
-public class Credentials {
+public final class Credentials {
     private String name;
     private String password;
     private String accountType;
@@ -10,7 +10,7 @@ public class Credentials {
     private String balance;
 
     // constructor
-    public Credentials(CredentialsInput input) {
+    public Credentials(final CredentialsInput input) {
         name = input.getName();
         password = input.getPassword();
         accountType = input.getAccountType();
@@ -57,15 +57,5 @@ public class Credentials {
 
     public void setBalance(final String balance) {
         this.balance = balance;
-    }
-
-    @Override
-    public String toString() {
-        return "Credentials{"
-                + "name: " + this.name + "\n"
-                + "password: " + this.password + "\n"
-                + "account type: " + this.accountType + "\n"
-                + "country: " + this.country + "\n"
-                + "balance: " + this.balance + "}" + "\n";
     }
 }

@@ -22,38 +22,64 @@ import program.util.dependencies.Filters;
 
 import java.util.ArrayList;
 
-public class Filter extends Feature implements Action {
+public final class Filter extends Feature implements Action {
     private final Filters filters;
     private Database database;
+    private ObjectNode node;
 
     // constructor
-    public Filter(ActionsInput input) {
+    public Filter(final ActionsInput input) {
         super(input);
         filters = new Filters(input.getFilters());
     }
 
+    /**
+     * Method saves an error as output. Like action is not
+     * permitted on this page.
+     * @param page stores Logged Homepage visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as output. Like action is not
+     * permitted on this page.
+     * @param page stores Unlogged Homepage visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as output. Like action is not
+     * permitted on this page.
+     * @param page stores Login page visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as output. Like action is not
+     * permitted on this page.
+     * @param page stores Logout page visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method filters movie list of user with given filters,
+     * by content and through sorting, and stores output
+     * @param page stores Movies page visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         // set user movies
         if (page.getUserMovies().size() == 0) {
             page.setUserMovies(new ArrayList<>(database.getUserMovies()));
@@ -68,28 +94,50 @@ public class Filter extends Feature implements Action {
         StandardOutput.set(node, page);
     }
 
+    /**
+     * Method saves an error as output. Like action is not
+     * permitted on this page.
+     * @param page stores Registe page visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
+    public void visit(final Register page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as output. Like action is not
+     * permitted on this page.
+     * @param page stores Upgrades page visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves an error as output. Like action is not
+     * permitted on this page.
+     * @param page stores See Details page visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method calls visit method of current page to apply filter
+     * and saves output: error if current page is not permitted
+     * to filter, or list of movies resulted after filtering.
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
         // visit page
         this.database = data;
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         output.add(node);
     }
 }

@@ -22,47 +22,79 @@ import program.util.User;
 import program.util.dependencies.Credentials;
 import java.util.ArrayList;
 
-public class Registers extends Feature implements Action {
+public final  class Registers extends Feature implements Action {
     private final Credentials credentials;
     private Database database;
+    private ObjectNode node;
 
-    // contructor
-    public Registers(ActionsInput input) {
+    // constructor
+    public Registers(final ActionsInput input) {
         super(input);
         this.credentials = new Credentials(input.getCredentials());
     }
 
+    /**
+     * Method saves error in output. Register action is not
+     * permitted on this page.
+     * @param page stores Logged Homepage  visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Register action is not
+     * permitted on this page.
+     * @param page stores Unlogged Homepage  visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Register action is not
+     * permitted on this page.
+     * @param page stores Login page  visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Register action is not
+     * permitted on this page.
+     * @param page stores Logout page  visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Register action is not
+     * permitted on this page.
+     * @param page stores Movies page  visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method checks if credentials given are already
+     * in the database, and if so, stores an error in output,
+     * else if registers new user and saves him in the database.
+     * @param page stores Register page visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
-        //Database database = Database.getInstance();
+    public void visit(final Register page) {
         if (nameAlreadyExists(credentials, database.getUsersData())) {
             OutputError.set(node);
-            database.setCurrentPage(PageFactory.createPage("homepage neautentificat", database));
+            database.setCurrentPage(PageFactory.createPage(
+                    "homepage neautentificat", database));
             return;
         }
 
@@ -72,7 +104,8 @@ public class Registers extends Feature implements Action {
         database.setCurrentUser(database.getUsersData().get(size - 1));
         database.getCurrentPage().setCurrentUser(database.getCurrentUser());
         // set new page
-        database.setCurrentPage(PageFactory.createPage("homepage autentificat", database));
+        database.setCurrentPage(PageFactory.createPage(
+                "homepage autentificat", database));
 
         // set user movie list
         database.setUserMovies(new ArrayList<>(database.getMoviesData()));
@@ -84,27 +117,52 @@ public class Registers extends Feature implements Action {
         StandardOutput.set(node, database.getCurrentPage());
     }
 
+    /**
+     * Method saves error in output. Register action is not
+     * permitted on this page.
+     * @param page stores Upgrades page  visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method saves error in output. Register action is not
+     * permitted on this page.
+     * @param page stores See Details page  visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method calls visit method of current page and
+     * stores output to display.
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
+        node = mapper.createObjectNode();
 
         // visit page
         this.database = data;
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         output.add(node);
     }
-    private boolean nameAlreadyExists(Credentials credentials, ArrayList<User> users) {
+
+    /**
+     * Method checks if user credentials are already in the
+     * database.
+     * @param credentials
+     * @param users
+     * @return
+     */
+    private boolean nameAlreadyExists(final Credentials credentials,
+                                      final ArrayList<User> users) {
         // check if name already exists in database
         for (User user: users) {
             if (user.getCredentials().getName().equals(credentials.getName())) {
@@ -113,7 +171,15 @@ public class Registers extends Feature implements Action {
         }
         return false;
     }
-    private boolean movieBanned(User user, Movie movie) {
+
+    /**
+     * Method checks if movie is banned from user
+     * @param user stores data about current user
+     * @param movie containes informatin about movie to
+     *              be tested
+     * @return
+     */
+    private boolean movieBanned(final User user, final Movie movie) {
         // check if user country belongs to banned countries of movie
         return movie.getCountriesBanned().contains(
                 user.getCredentials().getCountry());

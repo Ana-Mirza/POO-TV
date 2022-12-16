@@ -19,38 +19,64 @@ import program.util.Database;
 
 import java.util.ArrayList;
 
-public class Search extends Feature implements Action {
+public final class Search extends Feature implements Action {
     private final String startsWith;
     private Database database;
+    private ObjectNode node;
 
     // constructor
-    public Search(ActionsInput input) {
+    public Search(final ActionsInput input) {
         super(input);
         startsWith = input.getStartsWith();
     }
 
+    /**
+     * Mehtod stores error in output. Search action is not
+     * permitted on this page.
+     * @param page stores Logged Homepage visited
+     */
     @Override
-    public void visit(LoggedHomepage page, ObjectNode node) {
+    public void visit(final LoggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Mehtod stores error in output. Search action is not
+     * permitted on this page.
+     * @param page stores Unlogged Homepage visited
+     */
     @Override
-    public void visit(UnloggedHomepage page, ObjectNode node) {
+    public void visit(final UnloggedHomepage page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method stores error in output. Search action is not
+     * permitted on this page.
+     * @param page stores Login page visited
+     */
     @Override
-    public void visit(Login page, ObjectNode node) {
+    public void visit(final Login page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method stores error in output. Search action is not
+     * permitted on this page.
+     * @param page stores Logout page visited
+     */
     @Override
-    public void visit(Logout page, ObjectNode node) {
+    public void visit(final Logout page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method uploads movies available to user from database
+     * and saves in output to display.
+     * @param page stores page visited
+     */
     @Override
-    public void visit(Movies page, ObjectNode node) {
+    public void visit(final Movies page) {
         // set user movies
         page.setUserMovies(new ArrayList<>(database.getUserMovies()));
         page.getUserMovies().removeIf((movie) -> !movie.getName().startsWith(startsWith));
@@ -59,28 +85,49 @@ public class Search extends Feature implements Action {
         StandardOutput.set(node, page);
     }
 
+    /**
+     * Method stores error in output. Search action is not
+     * permitted on this page.
+     * @param page stores page visited
+     */
     @Override
-    public void visit(Register page, ObjectNode node) {
+    public void visit(final Register page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method stores error in output. Search action is not
+     * permitted on this page.
+     * @param page stores page visited
+     */
     @Override
-    public void visit(Upgrades page, ObjectNode node) {
+    public void visit(final Upgrades page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method stores error in output. Search action is not
+     * permitted on this page.
+     * @param page stores page visited
+     */
     @Override
-    public void visit(SeeDetails page, ObjectNode node) {
+    public void visit(final SeeDetails page) {
         OutputError.set(node);
     }
 
+    /**
+     * Method calls visit method of current page and
+     * saves output to display.
+     * @param data stores current status of system
+     * @param output stores output to be displayed
+     */
     @Override
-    public void apply(Database data, ArrayNode output) {
+    public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode node = mapper.createObjectNode();
-        // vi
+        node = mapper.createObjectNode();
+        // visit page
         this.database = data;
-        data.getCurrentPage().accept(this, node);
+        data.getCurrentPage().accept(this);
         output.add(node);
     }
 }

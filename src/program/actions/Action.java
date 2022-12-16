@@ -1,7 +1,6 @@
 package program.actions;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.pages.LoggedHomepage;
 import program.pages.UnloggedHomepage;
 import program.pages.Login;
@@ -17,66 +16,58 @@ public interface Action {
     /**
      * Method visits Logged Homepage and executes action
      *
-     * @param page page to be visited
-     * @param node stores ouptut of action
+     * @param page stores page visited
      */
-    void visit(LoggedHomepage page, ObjectNode node);
+    void visit(LoggedHomepage page);
 
     /**
      *
      * Method visits Unlogged Homepage and executes action
      *
-     * @param page page to be visited
-     * @param node stores output of action
+     * @param page stores page visited
      */
-    void visit(UnloggedHomepage page, ObjectNode node);
+    void visit(UnloggedHomepage page);
 
     /**
      * Method visits Login page and executes action
      *
-     * @param page page to be visited
-     * @param node stores output of action
+     * @param page stores page visited
      */
-    void visit(Login page, ObjectNode node);
+    void visit(Login page);
 
     /**
      * Method visits Logout page an dexecutes action
      *
-     * @param page page to be visited
-     * @param node stores output of action
+     * @param page stores page visited
      */
-    void visit(Logout page, ObjectNode node);
+    void visit(Logout page);
 
     /**
      * Method visits Movies page and executes action
      *
-     * @param page page to ve visited
-     * @param node stores output of action
+     * @param page stores page visited
      */
-    void visit(Movies page, ObjectNode node);
+    void visit(Movies page);
 
     /**
      * Method visits Register page and executes action
      *
-     * @param page page to be visited
-     * @param node stores output of action
+     * @param page stores page visited
      */
-    void visit(Register page, ObjectNode node);
+    void visit(Register page);
 
     /**
      * Method visits Upgrades page and executes action
      *
-     * @param page page to be visited
-     * @param node stores output of action
+     * @param page stores page visited
      */
-    void visit(Upgrades page, ObjectNode node);
+    void visit(Upgrades page);
     /**
      * Method visits See Details page and executes action
      *
-     * @param page page to be visited
-     * @param node stores output of action
+     * @param page stores page visited
      */
-    void visit(SeeDetails page, ObjectNode node);
+    void visit(SeeDetails page);
 
     /**
      * Method calls visit method for specific page of current action

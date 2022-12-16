@@ -7,7 +7,7 @@ import program.actions.Action;
 import program.actions.ActionFactory;
 import program.util.Database;
 
-public class Program {
+public final class Program {
     // Singleton Pattern
     private static Program instance = null;
     private Program() { }

@@ -1,9 +1,6 @@
 package program.pages;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
-import program.util.Database;
 import program.util.Movie;
 import program.util.User;
 
@@ -17,7 +14,7 @@ public abstract class Page {
     private ArrayList<String> actionsPermitted;
 
     // constructors
-    public Page(String name) {
+    public Page(final String name) {
         this.name = name;
         currentUser = new User();
         userMovies = new ArrayList<>();
@@ -25,7 +22,7 @@ public abstract class Page {
         actionsPermitted = new ArrayList<>();
     }
 
-    public Page(String name, User currentUser) {
+    public Page(final String name, final User currentUser) {
         this.name = name;
         this.currentUser = currentUser;
         userMovies = new ArrayList<>();
@@ -33,7 +30,7 @@ public abstract class Page {
         actionsPermitted = new ArrayList<>();
     }
 
-    public Page(String name, User currentUser, ArrayList<Movie> movies) {
+    public Page(final String name, final User currentUser, final ArrayList<Movie> movies) {
         this.name = name;
         this.currentUser = currentUser;
         userMovies = new ArrayList<>(movies);
@@ -42,32 +39,35 @@ public abstract class Page {
     }
 
     // getters and setters
-    public String getName() {
+    public final String getName() {
         return name;
     }
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
-    public User getCurrentUser() {
+    public final  User getCurrentUser() {
         return currentUser;
     }
-    public void setCurrentUser(User currentUser) {
+    public final void setCurrentUser(final User currentUser) {
         this.currentUser = currentUser;
     }
-    public ArrayList<String> getAccesiblePages() {
+    public final ArrayList<String> getAccesiblePages() {
         return accesiblePages;
     }
-    public ArrayList<String> getActionsPermitted() {
+    public final ArrayList<String> getActionsPermitted() {
         return actionsPermitted;
     }
-    public void setUserMovies(ArrayList<Movie> userMovies) {
+    public final void setUserMovies(final ArrayList<Movie> userMovies) {
         this.userMovies = userMovies;
     }
-    public ArrayList<Movie> getUserMovies() {
+    public final ArrayList<Movie> getUserMovies() {
         return userMovies;
     }
 
 
-    // method to accept action visitors
-    public void accept(Action action, ObjectNode node) { }
+    /**
+     * Method to accept visitor
+     * @param action is action visitor
+     */
+    public void accept(final Action action) { }
 }

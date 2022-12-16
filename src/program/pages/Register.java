@@ -1,11 +1,8 @@
 package program.pages;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
-import program.util.Database;
 
-public class Register extends Page {
+public final class Register extends Page {
     // constructor
     public Register() {
         super("register");
@@ -13,7 +10,11 @@ public class Register extends Page {
         super.getAccesiblePages().add("register");
     }
 
-    public void accept(Action action, ObjectNode node) {
-        action.visit(this, node);
+    /**
+     * Method to accept visitor
+     * @param action is action visitor
+     */
+    public void accept(final Action action) {
+        action.visit(this);
     }
 }

@@ -4,12 +4,12 @@ import fileio.ContainsInput;
 
 import java.util.ArrayList;
 
-public class Contains {
+public final class Contains {
     private ArrayList<String> actors;
     private ArrayList<String> genres;
 
     // constructor
-    public Contains(ContainsInput input) {
+    public Contains(final ContainsInput input) {
         if (input.getActors() != null) {
             actors = new ArrayList<>(input.getActors());
         }
@@ -23,7 +23,7 @@ public class Contains {
         return actors;
     }
 
-    public void setActors(ArrayList<String> actors) {
+    public void setActors(final ArrayList<String> actors) {
         this.actors = actors;
     }
 
@@ -31,15 +31,7 @@ public class Contains {
         return genres;
     }
 
-    public void setGenres(ArrayList<String> genres) {
+    public void setGenres(final ArrayList<String> genres) {
         this.genres = genres;
-    }
-
-    @Override
-    public String toString() {
-        return "Contains{" +
-                "actors=" + actors +
-                ", genres=" + genres +
-                '}';
     }
 }

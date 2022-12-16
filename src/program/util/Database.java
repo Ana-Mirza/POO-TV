@@ -6,6 +6,10 @@ import program.pages.PageFactory;
 
 import java.util.ArrayList;
 
+/**
+ * Database of the program. Contains information about
+ * the users in the system and all the movies.
+ */
 public class Database {
     private final ArrayList<User> usersData;
     private final ArrayList<Movie> moviesData;
@@ -14,7 +18,7 @@ public class Database {
     private ArrayList<Movie> userMovies;
 
     // constructor
-    public Database(Input input) {
+    public Database(final Input input) {
         // add database of users
         usersData = new ArrayList<>();
         input.getUsers().forEach((user) ->
@@ -27,34 +31,38 @@ public class Database {
     }
 
     // getters and setters
-    public ArrayList<User> getUsersData() {
+    public final ArrayList<User> getUsersData() {
         return usersData;
     }
 
-    public ArrayList<Movie> getMoviesData() {
+    public final ArrayList<Movie> getMoviesData() {
         return moviesData;
     }
-    public Page getCurrentPage() {
+    public final Page getCurrentPage() {
         return currentPage;
     }
 
-    public void setCurrentPage(Page currentPage) {
+    public final void setCurrentPage(final Page currentPage) {
         this.currentPage = currentPage;
     }
 
-    public User getCurrentUser() {
+    public final User getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(User currentUser) {
+    public final void setCurrentUser(final User currentUser) {
         this.currentUser = currentUser;
     }
 
-    public ArrayList<Movie> getUserMovies() {
+    public final ArrayList<Movie> getUserMovies() {
         return userMovies;
     }
 
-    public void setUserMovies(ArrayList<Movie> userMovies) {
+    /**
+     * Initializes movies available to user
+     * @param userMovies contains list of movies available
+     */
+    public final void setUserMovies(final ArrayList<Movie> userMovies) {
         this.userMovies = new ArrayList<>();
         this.userMovies.addAll(userMovies);
     }

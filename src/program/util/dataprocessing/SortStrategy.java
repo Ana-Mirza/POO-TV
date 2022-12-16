@@ -7,9 +7,15 @@ import program.util.dependencies.Sort;
 
 import java.util.Comparator;
 
-public class SortStrategy implements FilterStrategy{
+public final class SortStrategy implements FilterStrategy {
+    /**
+     * Sorts current movie list based on duration first,
+     * and in case of equality, by rating.
+     * @param input contains filters to be applied
+     * @param page contains movie list to be filtered
+     */
     @Override
-    public void filter(Filters input, Page page) {
+    public void filter(final Filters input, final Page page) {
         Sort sort = input.getSort();
 
         // check if sorting method exists

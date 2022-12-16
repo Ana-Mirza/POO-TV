@@ -1,14 +1,12 @@
 package program.pages;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import program.actions.Action;
 import program.util.Database;
 import program.util.dataprocessing.FilterStrategy;
 import program.util.dependencies.Filters;
 
-public class Movies extends Page {
-    public Movies(Database data) {
+public final class Movies extends Page {
+    public Movies(final Database data) {
         super("movies", data.getCurrentUser(), data.getUserMovies());
         super.getAccesiblePages().add("homepage autentificat");
         super.getAccesiblePages().add("see details");
@@ -18,11 +16,23 @@ public class Movies extends Page {
         super.getActionsPermitted().add("filter");
     }
 
-    public void accept(Action action, ObjectNode node) {
-        action.visit(this, node);
+    /**
+     * Accept method for action visitor
+     * @param action is visitor of page
+     */
+    public void accept(final Action action) {
+        action.visit(this);
     }
 
-    public void filter(FilterStrategy filterStrategy, Filters filter) {
+    /**
+     * Method of applying filter strategy on movie list of
+     * current user.
+     * @param filterStrategy is instance of specialized filter
+     *                       strategy
+     * @param filter containes input about how the filter should
+     *               be done
+     */
+    public void filter(final FilterStrategy filterStrategy, final Filters filter) {
         filterStrategy.filter(filter, this);
     }
 }
