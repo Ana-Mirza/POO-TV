@@ -29,27 +29,27 @@ public class Search extends Feature implements Action {
     }
 
     @Override
-    public void visit(LoggedHomepage page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(LoggedHomepage page, ObjectNode node, Database database) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(UnloggedHomepage page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(UnloggedHomepage page, ObjectNode node, Database database) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Login page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(Login page, ObjectNode node, Database database) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Logout page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(Logout page, ObjectNode node, Database database) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Movies page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(Movies page, ObjectNode node, Database database) {
         // set user movies
         page.setUserMovies(new ArrayList<>(database.getUserMovies()));
         page.getUserMovies().removeIf((movie) -> !movie.getName().startsWith(startsWith));
@@ -59,17 +59,17 @@ public class Search extends Feature implements Action {
     }
 
     @Override
-    public void visit(Register page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(Register page, ObjectNode node, Database database) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Upgrades page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(Upgrades page, ObjectNode node, Database database) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(SeeDetails page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(SeeDetails page, ObjectNode node, Database database) {
         OutputError.set(node);
     }
 

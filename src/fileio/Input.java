@@ -1,12 +1,8 @@
 package fileio;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
-public final class Input{
+public final class Input {
 
     private ArrayList<UsersInput> users;
 
@@ -21,7 +17,7 @@ public final class Input{
         return users;
     }
 
-    public void setUsers(ArrayList<UsersInput> users) {
+    public void setUsers(final ArrayList<UsersInput> users) {
         this.users = users;
     }
 
@@ -29,7 +25,7 @@ public final class Input{
         return movies;
     }
 
-    public void setMovies(ArrayList<MoviesInput> movies) {
+    public void setMovies(final ArrayList<MoviesInput> movies) {
         this.movies = movies;
     }
 
@@ -37,16 +33,7 @@ public final class Input{
         return actions;
     }
 
-    public void setActions(ArrayList<ActionsInput> actions) {
+    public void setActions(final ArrayList<ActionsInput> actions) {
         this.actions = actions;
-    }
-
-    @Override
-    public String toString() {
-        return "Input{" +
-                "users=" + users +
-                ", movies=" + movies +
-                ", actions=" + actions +
-                '}';
     }
 }

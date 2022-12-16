@@ -18,7 +18,8 @@ public final class ActionsInput {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
+
         this.type = type;
     }
 
@@ -26,23 +27,15 @@ public final class ActionsInput {
         return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(final String page) {
         this.page = page;
-    }
-
-    public String getFeatures() {
-        return feature;
-    }
-
-    public void setFeatures(String feature) {
-        this.feature = feature;
     }
 
     public CredentialsInput getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(CredentialsInput credentials) {
+    public void setCredentials(final CredentialsInput credentials) {
         this.credentials = credentials;
     }
 
@@ -50,15 +43,11 @@ public final class ActionsInput {
         return startsWith;
     }
 
-    public void setStartsWith(String startsWith) {
-        this.startsWith = startsWith;
-    }
-
     public String getMovie() {
         return movie;
     }
 
-    public void setMovie(String movie) {
+    public void setMovie(final String movie) {
         this.movie = movie;
     }
 
@@ -66,7 +55,7 @@ public final class ActionsInput {
         return filters;
     }
 
-    public void setFilters(FiltersInput filters) {
+    public void setFilters(final FiltersInput filters) {
         this.filters = filters;
     }
 
@@ -74,7 +63,7 @@ public final class ActionsInput {
         return feature;
     }
 
-    public void setFeature(String feature) {
+    public void setFeature(final String feature) {
         this.feature = feature;
     }
 
@@ -82,7 +71,7 @@ public final class ActionsInput {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(final String count) {
         this.count = count;
     }
 
@@ -90,22 +79,7 @@ public final class ActionsInput {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(final int rate) {
         this.rate = rate;
-    }
-
-    @Override
-    public String toString() {
-        return "ActionsInput{" +
-                "type='" + type + '\'' +
-                ", page='" + page + '\'' +
-                ", feature='" + feature + '\'' +
-                ", credentials=" + credentials +
-                ", movie='" + movie + '\'' +
-                ", startsWith='" + startsWith + '\'' +
-                ", filters=" + filters +
-                ", count='" + count + '\'' +
-                ", rate=" + rate +
-                '}';
     }
 }

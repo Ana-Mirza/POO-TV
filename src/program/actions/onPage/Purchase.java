@@ -26,42 +26,42 @@ public class Purchase extends Feature implements Action {
     }
 
     @Override
-    public void visit(LoggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(LoggedHomepage page, ObjectNode node, Database data) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(UnloggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(UnloggedHomepage page, ObjectNode node, Database data) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Login page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(Login page, ObjectNode node, Database data) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Logout page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(Logout page, ObjectNode node, Database data) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Movies page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(Movies page, ObjectNode node, Database data) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Register page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(Register page, ObjectNode node, Database data) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(Upgrades page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(Upgrades page, ObjectNode node, Database data) {
         OutputError.set(node);
     }
 
     @Override
-    public void visit(SeeDetails page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(SeeDetails page, ObjectNode node, Database data) {
         // check if user does not have enough tokens
         if ((!page.getCurrentUser().isPremium()
                 && page.getCurrentUser().getTokensCount() < moviePrice)

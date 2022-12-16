@@ -1,6 +1,6 @@
 package fileio;
 
-public class UsersInput {
+public final class UsersInput {
     private CredentialsInput credentials;
 
     public UsersInput() {
@@ -12,12 +12,5 @@ public class UsersInput {
 
     public void setCredentials(final CredentialsInput credentials) {
         this.credentials = credentials;
-    }
-
-    @Override
-    public String toString() {
-        return "UsersInput{" +
-                "credentials=" + credentials +
-                '}';
     }
 }

@@ -1,10 +1,5 @@
 package fileio;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.io.Serializable;
-
 public final class CredentialsInput {
 
     private String name;
@@ -58,15 +53,5 @@ public final class CredentialsInput {
 
     public void setBalance(final String balance) {
         this.balance = balance;
-    }
-
-    @Override
-    public String toString() {
-        return "Credentials{"
-                + "name: " + this.name + "\n"
-                + "password: " + this.password + "\n"
-                + "account type: " + this.accountType + "\n"
-                + "country: " + this.country + "\n"
-                + "balance: " + this.balance + "}" + "\n";
     }
 }

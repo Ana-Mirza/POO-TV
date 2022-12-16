@@ -7,10 +7,17 @@ import program.Program;
 import java.io.File;
 import java.io.IOException;
 
-public class Main {
+public final class Main {
 
     private Main() { }
-    public static void main(String[] args) throws IOException {
+
+    /**
+     * Openes input file and calls entry point of program
+     *
+     * @param args contain input and output files
+     * @throws IOException in case of exceptions to reading / writing
+     */
+    public static void main(final String[] args) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         ArrayNode output = objectMapper.createArrayNode();

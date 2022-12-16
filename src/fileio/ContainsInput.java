@@ -12,23 +12,11 @@ public final class ContainsInput {
         return actors;
     }
 
-    public void setActors(ArrayList<String> actors) {
+    public void setActors(final ArrayList<String> actors) {
         this.actors = actors;
     }
 
     public ArrayList<String> getGenre() {
         return genre;
-    }
-
-    public void setGenre(ArrayList<String> genre) {
-        this.genre = genre;
-    }
-
-    @Override
-    public String toString() {
-        return "ContainsInput{" +
-                "actors=" + actors +
-                ", genre=" + genre +
-                '}';
     }
 }

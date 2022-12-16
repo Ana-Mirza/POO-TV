@@ -14,7 +14,11 @@ import program.actions.onPage.BuyPremiumAccount;
 import program.actions.onPage.BuyTokens;
 
 public abstract class ActionFactory {
-    public static Action createAction(ActionsInput actions) {
+    /**
+     * @param actions contains actions to be instanced
+     * @return instance of specific action
+     */
+    public static Action createAction(final ActionsInput actions) {
         switch (actions.getType()) {
             case "change page": return new ChangePage(actions);
             case "on page":
@@ -29,6 +33,7 @@ public abstract class ActionFactory {
                     case "rate": return new Rate(actions);
                     case "buy premium account": return new BuyPremiumAccount(actions);
                     case "buy tokens": return new BuyTokens(actions);
+                    default: return null;
                 }
         }
         return null;

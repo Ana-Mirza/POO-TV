@@ -22,35 +22,39 @@ import program.util.User;
 
 import java.util.ArrayList;
 
-public class ChangePage implements Action {
+public final class ChangePage implements Action {
     private final String page;
     private final String movie;
     private boolean displayOutput;
 
     // constructors
-    public ChangePage(ActionsInput input) {
+    public ChangePage(final ActionsInput input) {
         page = input.getPage();
         movie = input.getMovie();
         displayOutput = false;
     }
 
     @Override
-    public void visit(LoggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(final LoggedHomepage page,
+                      final ObjectNode node, final Database data) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(UnloggedHomepage page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(final UnloggedHomepage page,
+                      final ObjectNode node, final Database data) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(Login page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(final Login page,
+                      final ObjectNode node, final Database data) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(Logout page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(final Logout page,
+                      final ObjectNode node, final Database data) {
         // update current page
         data.setCurrentPage(PageFactory.createPage("homepage neautentificat", data));
         data.setUserMovies(new ArrayList<>());
@@ -58,24 +62,28 @@ public class ChangePage implements Action {
     }
 
     @Override
-    public void visit(Movies page, ObjectMapper mapper, ObjectNode node, Database database) {
+    public void visit(final Movies page,
+                      final ObjectNode node, final Database database) {
         // set output
         StandardOutput.set(node, page);
         displayOutput = true;
     }
 
     @Override
-    public void visit(Register page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(final Register page,
+                      final ObjectNode node, final Database data) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(Upgrades page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(final Upgrades page,
+                      final ObjectNode node, final Database data) {
         StandardOutput.set(node, page);
     }
 
     @Override
-    public void visit(SeeDetails page, ObjectMapper mapper, ObjectNode node, Database data) {
+    public void visit(final SeeDetails page,
+                      final ObjectNode node, final Database data) {
         // set movie available
         page.getUserMovies().removeIf((movie) -> !movie.getName().equals(this.movie));
         displayOutput = true;
@@ -93,7 +101,7 @@ public class ChangePage implements Action {
         StandardOutput.set(node, page);
     }
 
-    public void apply(Database database, ArrayNode output) {
+    public void apply(final Database database, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
 
@@ -113,7 +121,7 @@ public class ChangePage implements Action {
         }
     }
 
-    private boolean pageNotAvailable(Database data) {
+    private boolean pageNotAvailable(final Database data) {
         Page currentPage = data.getCurrentPage();
         // check available pages
         for (String nextPage: currentPage.getAccesiblePages()) {

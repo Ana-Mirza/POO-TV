@@ -12,6 +12,6 @@ public class Logout extends Page {
     }
 
     public void accept(Action action, ObjectMapper mapper, ObjectNode node, Database database) {
-        action.visit(this, mapper, node, database);
+        action.visit(this, node, database);
     }
 }
