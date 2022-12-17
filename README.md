@@ -62,7 +62,6 @@ In order to wrap common functionalities together, several interfaces
 and abstract classes were used:
 
 * 'Action' interface to implement the specific action classes
-<img src="Action.png" height="300" width="300">
 * 'Feature' abstract class for feature classes
 * 'Page' abstract class for the implementation of the pages available
 on the platform
@@ -74,14 +73,3 @@ UML Diagram
 -
 ![Program Diagram](program.png)
 
-Feedback
--
-The idea of this homework is very interesting and practical,
-but its functionality was poorly detailed in the
-homework's description. The output implementation was very misguiding.
-For example, it was mentioned that only four on-page
-actions had output and the others not, which was not
-true in the tests. There were many other problems with
-the action's effect on certain pages. I had to rewrite my
-code based on the output expected on the tests, which
-is not ok.
