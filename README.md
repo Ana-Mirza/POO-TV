@@ -50,24 +50,29 @@ the platform, and total users registered.
 The platform is initialized at the beginning using a Singleton pattern
 and initializes the database of the platform. In order to execute the
 actions given by the user, the program uses a 'for' structure to
-parse the input commands, create specific instance of action,
-and visit the current page with given action. Next, the action
-creates an output based on its effect on the page, or an error
-if something was not permitted. The changes are stored in the
-platform's database, and the next action is executed.
+parse the input commands, create specific instance of action, and
+calls the action's apply method which further calls the visit
+method of the current page with given action and stores the input.
+Next, the action creates an output based on its effect on the page,
+or an error if something was not permitted. The changes are stored
+in the platform's database, and the next action is executed.
 
 ### Interfaces Used
 In order to wrap common functionalities together, several interfaces
 and abstract classes were used:
 
 * 'Action' interface to implement the specific action classes
+<img src="Action.png" height="300" width="300">
 * 'Feature' abstract class for feature classes
-* 'Page' abstract class for the implementation of the pages available on the
-platform
+* 'Page' abstract class for the implementation of the pages available
+on the platform
 * 'OutputStrategy' abstract class for the implementation
 of output classes
 * 'FilterStrategy' interface for the filter strategy classes.
 
+UML Diagram
+-
+![Program Diagram](program.png)
 
 Feedback
 -
