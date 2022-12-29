@@ -22,6 +22,7 @@ public abstract class ActionFactory {
         return switch (actions.getType()) {
             case "change page" -> new ChangePage(actions);
             case "on page" -> switch (actions.getFeature()) {
+
                 case "register" -> new Registers(actions);
                 case "login" -> new Logins(actions);
                 case "search" -> new Search(actions);

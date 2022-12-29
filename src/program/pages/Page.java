@@ -42,24 +42,31 @@ public abstract class Page {
     public final String getName() {
         return name;
     }
+
     public final void setName(final String name) {
         this.name = name;
     }
+
     public final  User getCurrentUser() {
         return currentUser;
     }
+
     public final void setCurrentUser(final User currentUser) {
         this.currentUser = currentUser;
     }
+
     public final ArrayList<String> getAccesiblePages() {
         return accesiblePages;
     }
+
     public final ArrayList<String> getActionsPermitted() {
         return actionsPermitted;
     }
+
     public final void setUserMovies(final ArrayList<Movie> userMovies) {
         this.userMovies = userMovies;
     }
+
     public final ArrayList<Movie> getUserMovies() {
         return userMovies;
     }

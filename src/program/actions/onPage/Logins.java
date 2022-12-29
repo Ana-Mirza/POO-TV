@@ -63,8 +63,9 @@ public final class Logins extends Feature implements Action {
      */
     @Override
     public void visit(final Login page) {
-        //Database database = Database.getInstance();
         int index = nameDoesNotExists(credentials, database.getUsersData());
+
+        // check if name exists in database
         if (index < 0) {
             OutputError.set(node);
             database.setCurrentPage(PageFactory.createPage(
@@ -78,9 +79,8 @@ public final class Logins extends Feature implements Action {
                 "homepage autentificat", database));
         database.getCurrentPage().setCurrentUser(database.getCurrentUser());
 
-        // set user movie list
+        // set user movie list by removing banned movies
         database.setUserMovies(new ArrayList<>(database.getMoviesData()));
-        // Delete banned movies
         database.getUserMovies().removeIf(
                 (movie) -> movieBanned(database.getCurrentPage(), movie));
 
@@ -165,11 +165,14 @@ public final class Logins extends Feature implements Action {
         // check if name exists in database
         for (int i = 0; i < users.size(); i++) {
             User user = users.get(i);
+
+            // return index of user in list of users
             if (user.getCredentials().getName().equals(credentials.getName())
                 && user.getCredentials().getPassword().equals(credentials.getPassword())) {
                 return i;
             }
         }
+
         return -1;
     }
 
@@ -180,7 +183,6 @@ public final class Logins extends Feature implements Action {
      * @return true if movie is banned and false if not
      */
     private boolean movieBanned(final Page page, final Movie movie) {
-        // check if user country belongs to banned countries of movie
         return movie.getCountriesBanned().contains(
                 page.getCurrentUser().getCredentials().getCountry());
     }

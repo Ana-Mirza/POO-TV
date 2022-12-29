@@ -10,10 +10,10 @@ Starting audit...
 [ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\actions\changePage\ChangePage.java:94:40: 'page' hides a field. [HiddenField]
 [ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\actions\changePage\ChangePage.java:96:40: 'movie' hides a field. [HiddenField]
 [ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\actions\onPage\Logins.java:164:53: 'credentials' hides a field. [HiddenField]
-[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\actions\onPage\Registers.java:164:57: 'credentials' hides a field. [HiddenField]
-[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:29:32: '15' is a magic number. [MagicNumber]
-[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:39:32: '15' is a magic number. [MagicNumber]
-[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:108:50: 'credentials' hides a field. [HiddenField]
-[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:109:16: 'premium' hides a field. [HiddenField]
+[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\actions\onPage\Registers.java:165:57: 'credentials' hides a field. [HiddenField]
+[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:27:32: '15' is a magic number. [MagicNumber]
+[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:38:32: '15' is a magic number. [MagicNumber]
+[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:107:50: 'credentials' hides a field. [HiddenField]
+[ERROR] C:\Users\anami\OneDrive - Universitatea Politehnica Bucuresti\facultate\anul 2\oop\IdeaProjects\POO-TV\.\src\program\util\User.java:108:16: 'premium' hides a field. [HiddenField]
 Audit done.
 Checkstyle ends with 16 errors.

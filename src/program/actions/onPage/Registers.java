@@ -91,6 +91,7 @@ public final  class Registers extends Feature implements Action {
      */
     @Override
     public void visit(final Register page) {
+        // check if name is already in database
         if (nameAlreadyExists(credentials, database.getUsersData())) {
             OutputError.set(node);
             database.setCurrentPage(PageFactory.createPage(
@@ -103,17 +104,17 @@ public final  class Registers extends Feature implements Action {
         int size = database.getUsersData().size();
         database.setCurrentUser(database.getUsersData().get(size - 1));
         database.getCurrentPage().setCurrentUser(database.getCurrentUser());
+
         // set new page
         database.setCurrentPage(PageFactory.createPage(
                 "homepage autentificat", database));
 
-        // set user movie list
+        // set user movie list by removing banned movies
         database.setUserMovies(new ArrayList<>(database.getMoviesData()));
-        // remove banned movies
         database.getUserMovies().removeIf(
                 (movie) -> movieBanned(database.getCurrentUser(), movie));
 
-        // save output
+        // set output
         StandardOutput.set(node, database.getCurrentPage());
     }
 
@@ -180,7 +181,6 @@ public final  class Registers extends Feature implements Action {
      * @return
      */
     private boolean movieBanned(final User user, final Movie movie) {
-        // check if user country belongs to banned countries of movie
         return movie.getCountriesBanned().contains(
                 user.getCredentials().getCountry());
     }

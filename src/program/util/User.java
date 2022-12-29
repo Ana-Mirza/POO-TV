@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public final class User {
     private Credentials credentials;
-
     @JsonIgnore
     private boolean premium;
     private int tokensCount;
@@ -18,10 +17,9 @@ public final class User {
     private ArrayList<Movie> likedMovies;
     private ArrayList<Movie> ratedMovies;
 
-
-
     // constructor
     public User() { }
+
     public User(final UsersInput user) {
         credentials = new Credentials(user.getCredentials());
         premium = this.getAccount(credentials);
@@ -32,6 +30,7 @@ public final class User {
         likedMovies = new ArrayList<>();
         ratedMovies = new ArrayList<>();
     }
+
     public User(final Credentials credentials) {
         this.credentials = credentials;
         premium = this.getAccount(credentials);

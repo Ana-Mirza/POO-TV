@@ -13,7 +13,6 @@ public final class Sort {
     }
 
     // getters and setters
-
     public String getRating() {
         return rating;
     }

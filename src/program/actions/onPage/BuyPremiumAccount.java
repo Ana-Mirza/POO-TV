@@ -19,6 +19,8 @@ import program.util.Database;
 public final class BuyPremiumAccount extends Feature implements Action {
     private boolean displayOutput;
     private ObjectNode node;
+
+    // constructor
     public BuyPremiumAccount(final ActionsInput input) {
         super(input);
         displayOutput = false;
@@ -98,9 +100,10 @@ public final class BuyPremiumAccount extends Feature implements Action {
      */
     @Override
     public void visit(final Upgrades page) {
-        // check if user has enough tokens to buy premium account
         int currentTokens = page.getCurrentUser().getTokensCount();
         final int premiumPrice = 10;
+
+        // check if user has enough tokens to buy premium account
         if (currentTokens < premiumPrice) {
             OutputError.set(node);
             displayOutput = true;
@@ -134,6 +137,7 @@ public final class BuyPremiumAccount extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
+
         // visit page
         data.getCurrentPage().accept(this);
         if (displayOutput) {

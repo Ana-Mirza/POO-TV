@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 public final class Like extends Feature implements Action {
     private ObjectNode node;
+
+    // constructor
     public Like(final ActionsInput input) {
         super(input);
     }
@@ -103,8 +105,9 @@ public final class Like extends Feature implements Action {
      */
     @Override
     public void visit(final SeeDetails page) {
-        // check if watched movie
         Movie movie = page.getUserMovies().get(0);
+
+        // check if watched movie
         if (!watchedMovie(movie, page.getCurrentUser().getWatchedMovies())) {
             OutputError.set(node);
             return;
@@ -113,6 +116,7 @@ public final class Like extends Feature implements Action {
         // like movie
         page.getCurrentUser().getLikedMovies().add(movie);
         movie.setNumLikes(movie.getNumLikes() + 1);
+
         // save output
         StandardOutput.set(node, page);
     }
@@ -127,7 +131,8 @@ public final class Like extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
-        // visit page
+
+        // visit page and save output for display
         data.getCurrentPage().accept(this);
         output.add(node);
     }

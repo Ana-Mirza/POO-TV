@@ -10,6 +10,7 @@ public final class Filters {
         if (input.getSort() != null) {
             sort = new Sort(input.getSort());
         }
+
         if (input.getContains() != null) {
             contains = new Contains(input.getContains());
         }

@@ -4,6 +4,7 @@ import program.actions.Action;
 
 
 public final class Login extends Page {
+    // constructor
     public Login() {
         super("login");
         super.getActionsPermitted().add("login");

@@ -20,6 +20,8 @@ public final class BuyTokens extends Feature implements Action {
     private final int count;
     private boolean displayOutput;
     private ObjectNode node;
+
+    // constructor
     public BuyTokens(final ActionsInput input) {
         super(input);
         displayOutput = false;
@@ -109,6 +111,7 @@ public final class BuyTokens extends Feature implements Action {
             displayOutput = true;
             return;
         }
+
         // update balance
         totalBalance -= count;
         page.getCurrentUser().getCredentials().setBalance(String.valueOf(totalBalance));
@@ -139,7 +142,8 @@ public final class BuyTokens extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
-        // visit page
+
+        // visit page and display output
         data.getCurrentPage().accept(this);
         if (displayOutput) {
             output.add(node);

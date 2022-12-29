@@ -81,7 +81,7 @@ public final class Search extends Feature implements Action {
         page.setUserMovies(new ArrayList<>(database.getUserMovies()));
         page.getUserMovies().removeIf((movie) -> !movie.getName().startsWith(startsWith));
 
-        // save output
+        // set output
         StandardOutput.set(node, page);
     }
 
@@ -125,7 +125,8 @@ public final class Search extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
-        // visit page
+
+        // visit page and save output
         this.database = data;
         data.getCurrentPage().accept(this);
         output.add(node);

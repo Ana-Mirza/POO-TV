@@ -20,6 +20,8 @@ import program.util.Movie;
 
 public final class Purchase extends Feature implements Action {
     private ObjectNode node;
+
+    // constructor
     public Purchase(final ActionsInput input) {
         super(input);
     }
@@ -103,8 +105,9 @@ public final class Purchase extends Feature implements Action {
      */
     @Override
     public void visit(final SeeDetails page) {
-        // check if user does not have enough tokens
         final int moviePrice = 2;
+
+        // check if user does not have enough tokens
         if ((!page.getCurrentUser().isPremium()
                 && page.getCurrentUser().getTokensCount() < moviePrice)
                 || (page.getCurrentUser().getNumFreePremiumMovies() == 0
@@ -116,6 +119,7 @@ public final class Purchase extends Feature implements Action {
         // purchase movie
         Movie movie = page.getUserMovies().get(0);
         page.getCurrentUser().getPurchasedMovies().add(movie);
+
         // update free movies left if user is premium and has free movies
         if (page.getCurrentUser().isPremium()
                 && page.getCurrentUser().getNumFreePremiumMovies() > 0) {
@@ -141,7 +145,8 @@ public final class Purchase extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
-        // visit page
+
+        // visit page and save output
         data.getCurrentPage().accept(this);
         output.add(node);
     }

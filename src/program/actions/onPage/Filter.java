@@ -87,6 +87,7 @@ public final class Filter extends Feature implements Action {
 
         // filter by input
         page.filter(new ContentStrategy(), filters);
+
         // sort by rating
         page.filter(new SortStrategy(), filters);
 
@@ -135,7 +136,8 @@ public final class Filter extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
-        // visit page
+
+        // visit page and save output for display
         this.database = data;
         data.getCurrentPage().accept(this);
         output.add(node);

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 public final class Rate extends Feature implements Action {
     private final int rating;
     private ObjectNode node;
+
+    // constructor
     public Rate(final ActionsInput input) {
         super(input);
         rating = input.getRate();
@@ -107,10 +109,11 @@ public final class Rate extends Feature implements Action {
      */
     @Override
     public void visit(final SeeDetails page) {
-        // check if movie was watched and if rating is valid
         Movie movie = page.getUserMovies().get(0);
         final int minRating = 1;
         final int maxRating = 5;
+
+        // check if movie was watched and if rating is valid
         if (!watchedMovie(movie, page.getCurrentUser().getWatchedMovies())
             || rating < minRating || rating > maxRating) {
             OutputError.set(node);
@@ -122,6 +125,7 @@ public final class Rate extends Feature implements Action {
         movie.setNumRatings(movie.getNumRatings() + 1);
         movie.setRating((movie.getRatingSum() / (double) movie.getNumRatings()));
         page.getCurrentUser().getRatedMovies().add(movie);
+
         // save output
         StandardOutput.set(node, page);
     }
@@ -136,6 +140,7 @@ public final class Rate extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
+
         // visit page
         data.getCurrentPage().accept(this);
         output.add(node);

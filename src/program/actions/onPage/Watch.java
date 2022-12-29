@@ -114,7 +114,8 @@ public final class Watch extends Feature implements Action {
 
         // watch movie
         page.getCurrentUser().getWatchedMovies().add(movie);
-        // save output
+
+        // set output
         StandardOutput.set(node, page);
     }
 
@@ -128,7 +129,8 @@ public final class Watch extends Feature implements Action {
     public void apply(final Database data, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         node = mapper.createObjectNode();
-        // visit page
+
+        // visit page and save output
         data.getCurrentPage().accept(this);
         output.add(node);
     }

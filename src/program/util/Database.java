@@ -23,10 +23,13 @@ public class Database {
         usersData = new ArrayList<>();
         input.getUsers().forEach((user) ->
                 usersData.add(new User(user)));
+
         // add database of movies
         moviesData = new ArrayList<>();
         input.getMovies().forEach((movie) ->
                 moviesData.add(new Movie(movie)));
+
+        // set current page
         currentPage = PageFactory.createPage("homepage neautentificat", this);
     }
 
@@ -38,6 +41,7 @@ public class Database {
     public final ArrayList<Movie> getMoviesData() {
         return moviesData;
     }
+
     public final Page getCurrentPage() {
         return currentPage;
     }

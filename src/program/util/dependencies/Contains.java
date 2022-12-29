@@ -13,6 +13,7 @@ public final class Contains {
         if (input.getActors() != null) {
             actors = new ArrayList<>(input.getActors());
         }
+
         if (input.getGenre() != null) {
             genres = new ArrayList<>(input.getGenre());
         }

@@ -28,6 +28,7 @@ public final class ContentStrategy implements FilterStrategy {
                         !movie.getActors().contains(actor));
             }
         }
+
         // delete movies not having given genres
         if (contains.getGenres() != null) {
             for (String genre: contains.getGenres()) {

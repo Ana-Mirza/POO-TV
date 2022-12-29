@@ -125,6 +125,7 @@ public final class ChangePage implements Action {
             output.add(node);
             return;
         }
+
         // set new current page
         data.setCurrentPage(PageFactory.createPage(page, data));
 
@@ -143,6 +144,7 @@ public final class ChangePage implements Action {
      */
     private boolean pageNotAvailable(final Database data) {
         Page currentPage = data.getCurrentPage();
+
         // check available pages
         return !currentPage.getAccesiblePages().contains(page);
     }
